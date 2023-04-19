@@ -1,22 +1,27 @@
 const itemForm = document.querySelector("#item-form")
 const itemInput = document.querySelector("#item-input")
 const itemList = document.querySelector("#item-list")
+const buttonClear = document.querySelector("#clear")
+const itemFilter = document.querySelector("#filter")
 
 const addItem = (evt) => {
   evt.preventDefault()
   const newItem = itemInput.value
 
   // Validate input
-  if (newItem.value === "") {
+  if (newItem === "") {
     modalOpen()
     return
   }
+
   const li = document.createElement("li")
   li.appendChild(document.createTextNode(newItem))
 
   const button = createButton("remove-item btn-link text-red")
   li.appendChild(button)
+
   itemList.appendChild(li)
+  checkUI()
   itemInput.value = ""
 }
 
@@ -34,8 +39,39 @@ function createIcon(classes) {
   return icon
 }
 
-itemForm.addEventListener("submit", addItem)
+function removeItem(evt) {
+  if (evt.target.parentElement.classList.contains("remove-item")) {
+    if (confirm("Are you sure?")) {
+      evt.target.parentElement.parentElement.remove()
 
+      checkUI()
+    }
+  }
+}
+
+function clearItems() {
+  while (itemList.firstChild) {
+    itemList.removeChild(itemList.firstChild)
+  }
+
+  checkUI()
+}
+
+function checkUI() {
+  const items = itemList.querySelectorAll("li")
+  if (items.length === 0) {
+    buttonClear.style.display = "none"
+    itemFilter.style.display = "none"
+  } else {
+    buttonClear.style.display = "block"
+    itemFilter.style.display = "block"
+  }
+}
+
+itemForm.addEventListener("submit", addItem)
+itemList.addEventListener("click", removeItem)
+buttonClear.addEventListener("click", clearItems)
+checkUI()
 // Modal behavior
 const modal = document.getElementById("myModal")
 const closeModal = document.querySelector(".close")
