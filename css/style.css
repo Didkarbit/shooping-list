@@ -135,18 +135,6 @@ header h1 {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
-.modal-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-}
-
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -165,9 +153,5 @@ header h1 {
 @media (max-width: 500px) {
   .items li {
     width: 100%;
-  }
-
-  .modal-content {
-    width: 90%;
   }
 }
